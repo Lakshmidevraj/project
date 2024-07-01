@@ -1,0 +1,24 @@
+• Creating a Directory: To create a directory in HDFS, use the mkdir command.
+hdfs dfs -mkdir /user/hadoop/mydirectory
+• Adding Files to HDFS: To add a file from your local file system to HDFS, use the
+put command.
+hdfs dfs -put localfile.txt /user/hadoop/mydirectory
+• Upload a directory to HDFS:
+hdfs dfs -put localdirectory /path/in/hdfs
+b) Retrieving Files.
+• To retrieve files from HDFS to your local file system, use the get command:
+hdfs dfs -get /path/in/hdfs/localfile.txt /path/in/local
+c) Deleting files.
+• Deleting a File: To delete a file from HDFS, use the rm command.
+hdfs dfs -rm /user/hadoop/mydirectory/localfile.txt
+• Deleting a Directory: To delete a directory and its contents, use the rm -r
+command.
+hdfs dfs -rm -r /user/hadoop/mydirectory
+d) Create a new file in HDFS environment.
+• Creating a new empty file in HDFS is not directly supported by a command.
+However, you can create an empty file locally and then upload it to HDFS.
+touch local_empty_file.txt
+hdfs dfs -put local_empty_file.txt /path/in/hdfs/emptyfile.txt
+e) List files in HDFS.
+• To list files and directories in HDFS, use the ls command:
+hdfs dfs -ls /path/in/hdfs
