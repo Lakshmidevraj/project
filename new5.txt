@@ -1,0 +1,60 @@
+Step-1: Go to VM à Network à Adapter 1 à Attached to: Select Bridge adapter à
+Name: Intel® Ethernet Connection à Advanced à Promiscuous mode: Allow all à
+OK
+Step-2: Run Hadoop
+Step-3: At the top right an option is available with double headed arrow marks à
+Enable connection à Connect the information (IP address will be found here).
+Step-4: Go to terminal in Hadoop à mkdir windows à cd windows à ls
+Step-5: Go to windows and check if the dataset is available in either documents or
+pictures, if not put it in the said folders.
+Step-6: Go to CMD à cd pictures/documents à scp movies.csv
+hadoop@172.25.4.67:/home/hadoop/windows
+It will ask for password: hadoop
+Step-7: Go to home/hadoop/windows/movies.csv and check for the dataset which will
+be moved from windows to Hadoop.
+Step-8: Go to terminal in VM and execute the following commands,
+> startCDH
+> ls
+>cp /home/hadoop/windows/movies.csv /home/hadoop/
+>ls
+>hadoop fs -put movies.csv movies1.csv (Give any name of your choice)
+>hadoop fs -ls
+>hadoop fs -ls /user
+>hadoop fs -ls /user/hive (Check for warehouse)
+>hive
+hive> create table if not exists movies(
+id int,
+name string,
+genre string)
+ row format delimited
+fields terminated by ',' ;
+hive> select * from movies;
+hive> load data local inpath 'movies.csv' into table movies;
+Copying data from file:/home/hadoop/movie.csv
+Copying file: file:/home/hadoop/movie.csv
+Loading data to table default.movies
+ hive> select * from movies;
+ hive> select id from movies;
+ hive> select name from movies;
+ hive> show tables;
+ hive> drop table movies;
+a. To find the movie with the highest average rating.
+select movie_id, avg(rating) as avg_rating
+from ratings
+group by movie_id
+order by avg_rating desc
+limit 1;
+b. Identify the most active users based on the number of ratings submitted.
+select user_id, count(*) as num_ratings
+from ratings
+group by user_id
+order by num_ratings desc
+limit 10; -- you can adjust the limit as needed
+c. Discover movies with the highest number of positive ratings.
+assuming a positive rating is 4 or 5:
+select movie_id, count(*) as positive_ratings
+from ratings
+where rating >= 4
+group by movie_id
+order by positive_ratings desc
+limit 10; -- you can adjust the limit as needed
